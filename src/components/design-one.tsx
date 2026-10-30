@@ -15,6 +15,7 @@ const nav: readonly NavItem[] = [
 ];
 
 const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 /** Seasonal timing comes straight from the business's FAQ: reminders in March, A/C checks in April, heat checks October to early November. */
 const calendar = [
@@ -83,7 +84,7 @@ export function DesignOne() {
           </Reveal>
           <Reveal className="d1-ruler" delay={80}>
             <div className="d1-ruler-track" role="img" aria-label="A twelve-month calendar: reminders in March, A/C checks in April, and heat checks from October to early November.">
-              {months.map((month, index) => <span key={index} className="d1-month" style={{ gridColumn: index + 1 }}><b>{month}</b></span>)}
+              {months.map((month, index) => <span key={index} className="d1-month" style={{ gridColumn: index + 1 }}><b>{month}</b><small aria-hidden="true">{monthNames[index].slice(0, 3)}</small></span>)}
               {calendar.map(item => <span key={item.id} className={`d1-mark d1-mark-${item.id}`} style={{ gridColumn: `${item.start} / span ${item.span}` }}><i>{item.label}</i></span>)}
             </div>
             <ol className="d1-ruler-notes">{calendar.map(item => <li key={item.id}><span>{item.title}</span><strong>{item.label}</strong><p>{item.text}</p></li>)}</ol>

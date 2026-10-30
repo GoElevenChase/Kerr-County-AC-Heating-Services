@@ -31,6 +31,11 @@ The two homepage directions and the chooser page were redesigned from scratch. B
 - Added fonts (all SIL OFL, licenses alongside in `public/fonts`): Archivo, Newsreader, Bricolage Grotesque, IBM Plex Mono.
 - Design names: Design 1 is now "Hill Country Field Notes" and Design 2 is "Comfort Control". The route ids (`design-1`, `design-2`) and `NEXT_PUBLIC_SELECTED_DESIGN` values are unchanged.
 
+**Update (October 30, 2026) — month hover animation (Design 1)**
+- In "The Kerrville year" ruler, hovering a month (J, F, M, A…) now fills the cell with cedar green, shrinks and lifts the letter, and slides in the short month name (Jan, Feb, Mar…) beneath it.
+- Files: `src/components/design-one.tsx` (month names added, hidden from screen readers since the ruler already has an `aria-label`) and `src/app/design-one.css` (hover styles; transitions are disabled under `prefers-reduced-motion`).
+- Checked: page renders with the new markup in the local dev server. The hover animation, type check, tests and builds were not run for this change.
+
 **Checked:** type check, unit tests, preview and production static exports (both designs), and no horizontal overflow at 390px wide.
 
 A reusable Next.js foundation for presenting two homepage directions, then publishing the client's selected design as a focused business website.

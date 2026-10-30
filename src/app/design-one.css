@@ -92,6 +92,12 @@
 .d1-ruler-track{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto 72px;border:1.5px solid var(--ink);background:var(--paper)}
 .d1-month{grid-row:1;display:grid;place-items:center;padding:14px 0;border-left:1px solid var(--rule);font-family:var(--display);font-stretch:62%;font-weight:800;font-size:clamp(20px,3.2vw,44px);line-height:1}
 .d1-month:first-child{border-left:0}
+.d1-month{position:relative;overflow:hidden;cursor:default;transition:background .3s var(--out),color .3s var(--out)}
+.d1-month b{font-weight:inherit;transition:transform .45s var(--out),opacity .3s}
+.d1-month small{position:absolute;left:0;right:0;bottom:50%;transform:translateY(160%);opacity:0;text-align:center;font-family:var(--display);font-stretch:100%;font-size:clamp(11px,1.3vw,16px);font-weight:800;letter-spacing:.14em;text-transform:uppercase;transition:transform .45s var(--out),opacity .3s}
+.d1-month:hover{background:var(--cedar);color:var(--cream)}
+.d1-month:hover b{transform:translateY(-70%) scale(.8);opacity:.55}
+.d1-month:hover small{transform:translateY(-50%) translateY(18px);opacity:1}
 .d1-mark{grid-row:2;position:relative;display:flex;align-items:center;justify-content:center;border-top:1.5px solid var(--ink);overflow:hidden}
 .d1-mark i{font-style:normal;font-family:var(--display);font-stretch:100%;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-align:center;line-height:1.1;padding:0 4px}
 .d1-mark-remind{background:var(--gold);color:var(--ink)}
@@ -280,5 +286,5 @@ body:has(.design-switcher) .d1-footer-bottom{padding-bottom:92px}
 }
 @media (prefers-reduced-motion:reduce){
   .d1-line>span,.d1-hero-photo,.d1-stamp,.d1-mark-cool{animation:none}
-  .d1-row::before,.d1-row-title,.d1-bignumber,.design-one .btn{transition:none}
+  .d1-row::before,.d1-row-title,.d1-bignumber,.design-one .btn,.d1-month,.d1-month b,.d1-month small{transition:none}
 }
