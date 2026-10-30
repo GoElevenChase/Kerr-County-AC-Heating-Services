@@ -8,6 +8,31 @@ Built from the ElevenChase starter. The preview homepage presents two redesigned
 - npm scripts call `tsc`, `next` and `serve` through `node`, because the `&` in this folder's name breaks npm's Windows command shims.
 - The business publishes no email address, so the starter's contact form is not used; calls, texts, and Housecall Pro online booking are the contact paths.
 
+## Redesign notes (October 2026)
+
+The two homepage directions and the chooser page were redesigned from scratch. Business facts, links, booking, and the preview/production build logic are unchanged.
+
+**Design 1 — Hill Country Field Notes** (`src/components/design-one.tsx`, `one-parts.tsx`, `src/app/design-one.css`)
+- Editorial, almanac-style page on limestone paper; palette taken from the shop sign (limestone, cedar green, rose granite, gold).
+- Archivo (width axis) for headlines, Newsreader for reading text.
+- Built around the Kerrville year: a 12-month ruler marks the March reminder, April A/C check, and October to early November heat check, all from the business's own FAQ.
+- Services as an index of rows, a VIP "ticket", a typographic service-area wall, and a live open/closed status from the posted hours.
+
+**Design 2 — Comfort Control** (`src/components/design-two.tsx`, `two-parts.tsx`, `src/app/design-two.css`)
+- Dark, technical control-room look (charcoal, ice blue, ember orange) with Bricolage Grotesque and IBM Plex Mono.
+- Video hero with a working thermostat: the reading points visitors to furnace repair, the VIP program, or AC repair.
+- Service selector (keyboard-accessible tabs), town marquee, counting review figure, large-type FAQ, dispatch-style contact panel, and a section dot rail.
+
+**Chooser page** (`src/components/design-chooser.tsx`, `src/app/chooser.css`)
+- A neutral gallery wall with two preview panels that expand on hover; previews are `public/previews/design-*-desktop.jpg`.
+
+**Other changes**
+- Removed the old shared header, footer, FAQ list, tilt effect, and their styles; `shared.tsx` keeps only the pieces both designs use.
+- Added fonts (all SIL OFL, licenses alongside in `public/fonts`): Archivo, Newsreader, Bricolage Grotesque, IBM Plex Mono.
+- Design names: Design 1 is now "Hill Country Field Notes" and Design 2 is "Comfort Control". The route ids (`design-1`, `design-2`) and `NEXT_PUBLIC_SELECTED_DESIGN` values are unchanged.
+
+**Checked:** type check, unit tests, preview and production static exports (both designs), and no horizontal overflow at 390px wide.
+
 A reusable Next.js foundation for presenting two homepage directions, then publishing the client's selected design as a focused business website.
 
 The starter is independent of MEGA and Gomega. It does not require their accounts, packages, review bridges, tracking scripts, or lead-routing services.
