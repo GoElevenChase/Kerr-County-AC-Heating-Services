@@ -1,0 +1,44 @@
+/* Chooser — a quiet gallery wall. Neutral paper so neither direction looks "pre-chosen";
+   the two panels open on hover like a pair of framed screens. */
+.chooser{--paper:#eceae4;--ink:#16181a;--mute:#5c6063;--rule:#16181a33;
+  min-height:100vh;padding:0 clamp(20px,4vw,56px) 32px;background:var(--paper);color:var(--ink);
+  font-family:"Bricolage Control","Helvetica Neue",Arial,sans-serif;overflow-x:clip}
+.chooser *{box-sizing:border-box}
+.ch-header{display:flex;align-items:center;gap:22px;padding:20px 0;border-bottom:1px solid var(--rule);font-family:"Plex Mono Control",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.ch-header .logo img{width:128px}
+.ch-header-date{margin-left:auto;color:var(--mute)}
+.ch-intro{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:12px clamp(24px,6vw,96px);align-items:end;padding:clamp(28px,4vw,56px) 0 clamp(24px,3vw,40px)}
+.ch-label{grid-column:1/-1;margin:0;font-family:"Plex Mono Control",ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.ch-intro h1{margin:0;font-size:clamp(40px,5.8vw,96px);font-weight:700;line-height:.95;letter-spacing:-.025em}
+.ch-intro h1 em{font-style:normal;font-weight:300}
+.ch-note{margin:0;max-width:380px;font-size:17px;line-height:1.55;color:var(--mute)}
+
+.ch-panels{display:flex;gap:clamp(12px,1.6vw,24px);height:clamp(480px,calc(100vh - 380px),760px)}
+.ch-panel{position:relative;display:flex;flex-direction:column;flex:1 1 0;min-width:0;background:#fff;border:1px solid var(--ink);transition:flex-grow .7s cubic-bezier(.16,1,.3,1)}
+.ch-panel:hover,.ch-panel:focus-within{flex-grow:1.55}
+.ch-shot{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;border-bottom:1px solid var(--ink)}
+.ch-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.ch-panel:hover .ch-shot img{transform:scale(1.03)}
+.ch-caption{position:relative;flex:none;padding:20px 24px 22px}
+.ch-index{display:flex;justify-content:space-between;gap:12px;margin:0 0 8px;font-family:"Plex Mono Control",ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.ch-index span{color:var(--mute);text-align:right}
+.ch-caption h2{margin:0 0 8px;font-size:clamp(28px,3vw,44px);font-weight:800;line-height:1;letter-spacing:-.03em}
+.ch-desc{margin:0;max-width:560px;font-size:15px;line-height:1.5;color:var(--mute);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;transition:all .3s}
+.ch-panel:hover .ch-desc,.ch-panel:focus-within .ch-desc{-webkit-line-clamp:unset;overflow:visible}
+.ch-tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0;list-style:none}
+.ch-tags li{padding:3px 9px;border:1px solid var(--rule);font-family:"Plex Mono Control",ui-monospace,monospace;font-size:11px;letter-spacing:.04em}
+.ch-open{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-top:10px;font-family:"Plex Mono Control",ui-monospace,monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:2px}
+.ch-open::after{content:"";position:absolute;inset:0;z-index:1}
+.ch-panel:hover .ch-open,.ch-open:focus-visible{color:#b8431a;border-color:#b8431a}
+.ch-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-top:24px;font-family:"Plex Mono Control",ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+
+@media (max-width:900px){
+  .ch-intro{grid-template-columns:minmax(0,1fr)}
+  .ch-panels{flex-direction:column;height:auto}
+  .ch-panel,.ch-panel:hover,.ch-panel:focus-within{flex-grow:0}
+  .ch-shot{flex:none;aspect-ratio:16/10}
+  .ch-desc{-webkit-line-clamp:unset;display:block}
+  .ch-header-date{display:none}
+}
+@media (hover:none){.ch-panel:hover{flex-grow:1}.ch-panel:hover .ch-shot img{transform:none}}
+@media (prefers-reduced-motion:reduce){.ch-panel,.ch-shot img{transition:none}}

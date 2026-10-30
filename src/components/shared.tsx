@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { siteContent, type LinkItem } from "@/content/site";
+import { siteContent } from "@/content/site";
 import { siteSettings } from "@/lib/site-settings";
 
-type Variant = "one" | "two";
 const { business } = siteContent;
 
 export function Arrow({ className = "", direction = "right" }: { className?: string; direction?: "right" | "up" }) {
@@ -59,46 +58,7 @@ export function ScheduleButton({ className = "", children = "Schedule Service", 
   return <ExternalLink href={business.bookingUrl} className={`btn ${className}`}>{children}{arrow && <Arrow />}</ExternalLink>;
 }
 
-export interface NavItem { readonly label: string; readonly href: string; readonly services?: boolean }
-
-export function SiteHeader({ variant, nav }: { variant: Variant; nav: readonly NavItem[] }) {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const trigger = useRef<HTMLButtonElement>(null);
-  const panel = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  useEffect(() => {
-    if (!open) return;
-    panel.current?.querySelector<HTMLAnchorElement>("a")?.focus();
-    function onKey(event: KeyboardEvent) {
-      if (event.key === "Escape") { setOpen(false); trigger.current?.focus(); }
-    }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
-  const close = () => setOpen(false);
-  return <header className={`site-header header-${variant} ${scrolled ? "is-scrolled" : ""}`}>
-    <div className="wrap header-inner">
-      <a className="brand-link" href="#top" aria-label={`${business.name}, back to top`}><Logo /></a>
-      <nav className="desktop-nav" aria-label="Main navigation">
-        {nav.map((item, index) => item.services
-          ? <div key={item.label} className="nav-dropdown"><a href={item.href} className={index === 0 ? "is-current" : undefined}>{item.label}<Icon name="chevron" size={13} /></a><div className="nav-menu">{siteContent.services.map(service => <ExternalLink key={service.id} href={service.href}>{service.title}</ExternalLink>)}</div></div>
-          : <a key={item.label} href={item.href} className={index === 0 ? "is-current" : undefined} aria-current={index === 0 ? "location" : undefined}>{item.label}</a>)}
-      </nav>
-      <div className="header-actions">
-        <a className="header-phone" href={business.phoneHref}><Icon name="phone" size={17} /><span>{business.phone}</span></a>
-        <ScheduleButton className="header-book" arrow={false} />
-        <button ref={trigger} type="button" className="mobile-toggle" aria-expanded={open} aria-controls={`mobile-navigation-${variant}`} aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}><Icon name={open ? "close" : "menu"} size={22} /></button>
-      </div>
-    </div>
-    {open && <div id={`mobile-navigation-${variant}`} ref={panel} className="mobile-navigation"><nav aria-label="Mobile navigation">{nav.map(item => <a key={item.label} href={item.href} onClick={close}>{item.label}<Arrow /></a>)}</nav><div className="mobile-actions"><a className="btn btn-outline" href={business.phoneHref}><Icon name="phone" size={16} /> Call {business.phone}</a><ScheduleButton /></div></div>}
-  </header>;
-}
+export interface NavItem { readonly label: string; readonly href: string }
 
 export function Reveal({ children, className = "", delay = 0, as: Tag = "div" }: { children: ReactNode; className?: string; delay?: number; as?: "div" | "li" }) {
   const el = useRef<HTMLDivElement & HTMLLIElement>(null);
@@ -138,82 +98,7 @@ export function HeroVideo({ src, poster, className = "" }: { src: string; poster
   </div>;
 }
 
-export function FaqList({ ids, className = "" }: { ids: readonly string[]; className?: string }) {
-  const items = ids.map(id => siteContent.faqs.find(faq => faq.id === id)).filter(faq => faq !== undefined);
-  return <div className={`faq-list ${className}`}>{items.map(faq => <details key={faq.id}><summary><span>{faq.question}</span><Icon name="plus" size={16} className="faq-plus" /></summary><p>{faq.answer}</p></details>)}</div>;
-}
-
-function FooterColumn({ title, links }: { title: string; links: readonly LinkItem[] }) {
-  return <div className="footer-column"><h2>{title}</h2><ul>{links.map(link => <li key={link.label}><ExternalLink href={link.href}>{link.label}</ExternalLink></li>)}</ul></div>;
-}
-
-/** Footer content mirrors kerrcountyac.com: quick links, service areas, contact, and community. */
-export function SiteFooter({ variant, nav }: { variant: Variant; nav: readonly NavItem[] }) {
-  const { footer } = siteContent;
-  const year = new Date().getFullYear();
-  return <footer className={`site-footer footer-${variant}`}>
-    <div className="wrap">
-      <div className="footer-top">
-        <div className="footer-brand"><a href="#top" aria-label="Back to top"><Logo plate /></a>{variant === "two" && <span className="footer-sub">Family Owned · Kerrville TX</span>}</div>
-        <nav className="footer-nav" aria-label="Footer navigation">{nav.map(item => <a key={item.label} href={item.href}>{item.label}</a>)}</nav>
-        <div className="footer-actions">
-          <a className="footer-phone" href={business.phoneHref}><Icon name="phone" size={17} />{business.phone}</a>
-          {variant === "one"
-            ? <><span className="footer-rule" aria-hidden="true" /><div className="footer-social">{footer.social.slice(0, 2).map(item => <ExternalLink key={item.label} href={item.href} label={`${business.shortName} on ${item.label}`}><Icon name={item.label.toLowerCase()} size={20} /></ExternalLink>)}</div></>
-            : <ScheduleButton className="footer-book" arrow={false} />}
-        </div>
-      </div>
-      <div className="footer-main">
-        <FooterColumn title="Quick Links" links={footer.quickLinks} />
-        <div className="footer-column"><h2>Service Areas</h2><ul>{footer.serviceAreaLinks.map(link => <li key={link.label}><ExternalLink href={link.href}>{link.label}</ExternalLink></li>)}<li><ExternalLink href={siteContent.links.serviceArea} className="footer-more">See Complete Service Area <Arrow /></ExternalLink></li></ul></div>
-        <div className="footer-column footer-contact"><h2>Contact Us</h2>
-          <p className="footer-name">{business.name}</p>
-          <p><span>Phone:</span> <a href={business.phoneHref}>(830) 988-4710</a></p>
-          <p><span>Address:</span> <ExternalLink href={business.address.mapUrl}>{business.address.street}, {business.address.locality}</ExternalLink></p>
-          <p className="footer-hours-title">Hours of Operation</p>
-          <ul className="footer-hours">{business.hours.map(row => <li key={row.days}><span>{row.days}:</span> {row.time}</li>)}</ul>
-          <p className="footer-emergency"><Icon name="warning" size={16} />{business.emergency}</p>
-        </div>
-        <div className="footer-column footer-connect"><h2>Connect With Us</h2>
-          <div className="footer-social is-large">{footer.social.map(item => <ExternalLink key={item.label} href={item.href} label={item.label === "Google" ? "Review us on Google" : `${business.shortName} on ${item.label}`}><Icon name={item.label.toLowerCase()} size={20} /></ExternalLink>)}</div>
-          <div className="footer-chambers">{footer.chambers.map(chamber => {
-            // eslint-disable-next-line @next/next/no-img-element
-            const image = <img src={chamber.image} alt={chamber.name} width={chamber.width} height={chamber.height} loading="lazy" />;
-            return chamber.href ? <ExternalLink key={chamber.name} href={chamber.href}>{image}</ExternalLink> : <span key={chamber.name}>{image}</span>;
-          })}</div>
-        </div>
-      </div>
-      <div className="footer-bottom">
-        <span>Copyright © {footer.since}–{year} {business.name}. All rights reserved.</span>
-        <span className="footer-legal">{footer.legal.map(link => <ExternalLink key={link.label} href={link.href}>{link.label}</ExternalLink>)}</span>
-        <span className="footer-tagline">Family taking care of families.</span>
-      </div>
-    </div>
-  </footer>;
-}
-
-/** Subtle pointer tilt for the chooser cards; skipped for touch and reduced motion. */
-export function TiltEffects() {
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce), (hover: none)").matches) return;
-    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
-    const cleanups = cards.map(card => {
-      const move = (event: PointerEvent) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--tx", String((event.clientX - rect.left) / rect.width - 0.5));
-        card.style.setProperty("--ty", String((event.clientY - rect.top) / rect.height - 0.5));
-      };
-      const leave = () => { card.style.setProperty("--tx", "0"); card.style.setProperty("--ty", "0"); };
-      card.addEventListener("pointermove", move);
-      card.addEventListener("pointerleave", leave);
-      return () => { card.removeEventListener("pointermove", move); card.removeEventListener("pointerleave", leave); };
-    });
-    return () => cleanups.forEach(cleanup => cleanup());
-  }, []);
-  return null;
-}
-
-const designNames = { "design-1": "The Neighborhood Standard", "design-2": "Comfort, Handled" } as const;
+const designNames = { "design-1": "Hill Country Field Notes", "design-2": "Comfort Control" } as const;
 
 export function DesignSwitcher({ active }: { active: "design-1" | "design-2" }) {
   if (siteSettings.isProduction) return null;

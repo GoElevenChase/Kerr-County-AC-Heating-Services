@@ -4,7 +4,7 @@ import { buildMetadata } from "@/lib/metadata";
 
 // next.config.ts recognizes the .preview.tsx extension only in preview mode.
 export const metadata = buildMetadata({
-  title: "Comfort, Handled · Design 02",
+  title: "Comfort Control · Design 02",
   path: "/design-2/",
 });
 

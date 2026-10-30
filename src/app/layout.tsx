@@ -3,6 +3,7 @@ import { siteMetadata } from "@/lib/metadata";
 import "./globals.css";
 import "./design-one.css";
 import "./design-two.css";
+import "./chooser.css";
 
 export const metadata = siteMetadata;
 

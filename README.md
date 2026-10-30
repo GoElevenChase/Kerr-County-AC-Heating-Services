@@ -1,10 +1,10 @@
 # Kerr County A/C & Heating Services — Website
 
-Built from the ElevenChase starter. The preview homepage presents two directions based on the client's two mockups; both use the business facts, logo, photos, and video from kerrcountyac.com (October 2026).
+Built from the ElevenChase starter. The preview homepage presents two redesigned directions, **Hill Country Field Notes** (Design 1, editorial and warm) and **Comfort Control** (Design 2, dark and interactive); both use the business facts, logo, photos, and video from kerrcountyac.com (October 2026).
 
 - Content and links: `src/content/site.ts` (phone, address, hours, VIP program, FAQs, service areas, footer links mirroring kerrcountyac.com).
 - Media: `public/images` (logo with transparent background, site photos, frames taken from the site's homepage video) and `public/video/kerr-county-hero.mp4` (the site video, trimmed before the end card and muted).
-- Chooser previews: `public/previews/design-*-desktop.webp` are screenshots of the two designs; regenerate them after visual changes.
+- Chooser previews: `public/previews/design-*-desktop.jpg` are screenshots of the two designs; regenerate them after visual changes.
 - npm scripts call `tsc`, `next` and `serve` through `node`, because the `&` in this folder's name breaks npm's Windows command shims.
 - The business publishes no email address, so the starter's contact form is not used; calls, texts, and Housecall Pro online booking are the contact paths.
 
@@ -15,8 +15,8 @@ The starter is independent of MEGA and Gomega. It does not require their account
 ## What you get
 
 - A design-selection page at `/` in preview mode.
-- **Design 1 — The Neighborhood Standard** (bright, Manrope) at `/design-1`.
-- **Design 2 — Comfort, Handled** (navy, Montserrat, video hero) at `/design-2`.
+- **Design 1 — Hill Country Field Notes** (limestone, cedar and granite; Archivo + Newsreader) at `/design-1`.
+- **Design 2 — Comfort Control** (charcoal, ice and ember; Bricolage Grotesque + Plex Mono; video hero with a working thermostat) at `/design-2`.
 - Shared, typed business content in `src/content/site.ts`.
 - Responsive layouts, keyboard-accessible controls, and reduced-motion support.
 - An honest contact flow: an email draft by default, or an optional configured external submission service.
