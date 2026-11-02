@@ -1,32 +1,27 @@
 {
-  "name": "kerr-county-ac-heating",
-  "version": "1.0.0",
+  "name": "site",
+  "version": "0.1.0",
   "private": true,
-  "packageManager": "npm@11.9.0",
-  "description": "Kerr County A/C & Heating Services website: two homepage directions built on the ElevenChase Next.js starter.",
-  "engines": { "node": ">=22.13.0" },
   "scripts": {
-    "dev": "node scripts/dev.mjs",
-    "prebuild": "npm run check:config && node scripts/clean-export.mjs",
-    "build": "node node_modules/next/dist/bin/next build",
-    "check:config": "node --import tsx scripts/check-config.mjs",
-    "check": "npm run check:config && node node_modules/typescript/bin/tsc --noEmit",
-    "test": "node --import tsx --test --test-isolation=none tests/*.test.ts",
-    "test:export": "node scripts/verify-export.mjs",
-    "start": "node node_modules/serve/build/main.js out"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "@next/env": "16.4.2",
-    "next": "16.4.2",
-    "react": "19.3.1",
-    "react-dom": "19.3.1"
+    "next": "16.4.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
-    "@types/node": "^22",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5.9.3",
-    "tsx": "^4.23.0",
-    "serve": "^14.2.4"
+    "eslint": "^9",
+    "eslint-config-next": "16.4.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
